@@ -34,6 +34,10 @@ spec:
 {{ toYaml .Values.resources | indent 10 }}
         image: {{ .Values.image }}:{{ .Values.imageTag }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{- if .Values.imagePullSecrets }}
+        imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets }}
+        {{- end }}
         {{ with .Values.args }}
         args:
         {{ toYaml . | indent 8 | trim }}
